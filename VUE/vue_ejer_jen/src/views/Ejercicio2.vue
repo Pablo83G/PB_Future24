@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import card from '../components/Card.vue'
-const URL = 'https://rickandmortyapi.com/api/character'
+
 
 export default {
     
@@ -27,24 +27,13 @@ export default {
     components: {
         card
     },
-    //define la variable que va a contener los datos recibidos de la API y su estado inicial
-    data:()=>({
-        apiData:null
-    }),
-    //Realiza la petición a la API cuando el componente está montado
     mounted(){
-       this.fetchData();
+        this.$store.dispatch('fetchApiData');
     },
-    methods:{
-        //Realiza la petición a la API con la librería AXIOS
-        async fetchData(){
-            try{
-                const response = await axios.get(URL);
-                this.apiData= response.data.results;//Vuelca la respuesta de la API con nuestra variable
-            }catch(err){
-                console.error('Error petición', err)
-            }
-        }
-    }
+    computed: {
+    apiData() {
+      return this.$store.getters['getApiData'];
+    },
+  },
 }
 </script>

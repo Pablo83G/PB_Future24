@@ -5,18 +5,11 @@
         <v-divider class="mx-4"></v-divider>
         <v-card-text>
             <ul>
-                <li>Estado:{{ status }}</li>
-                <li>Especie:{{ species }}</li>
-                <li>Genero:{{ gender }}</li>
+                <li>Status:{{ status }}</li>
+                <li>Species:{{ species }}</li>
+                <li>Gender:{{ gender }}</li>
             </ul>
         </v-card-text>
-        
-        <v-card-actions>
-            <!-- <v-btn @click="toggleLike"  :class="btnStatus">
-                <span v-text="like ? 'Favorita ' : 'Agregar a favoritos '"></span>
-                 <v-icon>mdi-thumb-up</v-icon>
-            </v-btn> -->
-        </v-card-actions>
     </v-card>
 </template>
 <script>
@@ -54,13 +47,7 @@ export default {
         
     },
 
-    data:()=>({
-       
-       
-    }),
-    
- 
-
+    data:()=>({   }),
 }
 
 </script>

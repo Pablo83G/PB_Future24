@@ -1,6 +1,5 @@
 <template>
-  <v-container>
-   
+  <v-container>  
       <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -20,13 +19,7 @@
           &copy; Desarrollado por Jennifer Madrigal Pérez 
         </p>
       </v-col>
-      </v-row>
-   
-
-
-
-
- 
+      </v-row> 
   </v-container>
 </template>
 

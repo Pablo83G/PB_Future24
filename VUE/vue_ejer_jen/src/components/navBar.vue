@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     
       <v-img alt="Vuetify Logo" class="shrink mr-2" contain
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40" @click="drawer" />
+        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40" />
 
 
       <v-toolbar-title v-text="title"></v-toolbar-title>
@@ -31,7 +31,7 @@ export default {
   name: 'nav_bar',
 
   data: () => ({
-    drawer: null,
+    drawer: false,
     title: 'JENAPP',
     items: [
       { title: 'Home', icon: 'mdi-home', name: 'home' },

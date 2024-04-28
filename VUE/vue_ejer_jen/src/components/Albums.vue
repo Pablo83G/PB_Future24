@@ -22,7 +22,7 @@
                   <td> <v-btn icon small class="mr-2" @click="editAlbum(album)">
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-btn icon small   @click="deleteAlbum(album)">
+                    <v-btn icon small @click="deleteAlbum(album)">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                   </td>
@@ -53,6 +53,7 @@
         <v-btn @click="closeAddAlbumDialog" color="blue darken-1" text>Cancelar</v-btn>
       </template>
     </generic_dialog>
+
     <generic_dialog :dialog-visible="editAlbumDialog" :title="'Editar Album'">
       <template #content>
         <v-text-field label="Nombre" v-model="editAlbumName" />
@@ -63,13 +64,13 @@
       </template>
     </generic_dialog>
 
-
-
   </v-container>
 </template>
 
 <script>
+
 import generic_dialog from '@/components/GenericDialog.vue'
+const type='albums'
 export default {
 
   data() {
@@ -84,9 +85,10 @@ export default {
   },
 
   methods: {
+    
     addAlbum() {
       if (this.newAlbumName) {
-        this.$store.dispatch('addAlbumAction', this.newAlbumName);
+        this.$store.dispatch('addAction', {type:type, newData:this.newAlbumName});
         this.newAlbumName = '';
         this.closeAddAlbumDialog();
       }
@@ -99,13 +101,13 @@ export default {
     saveEditedAlbum() {
       if (this.editAlbumName) {
         //   console.log(this.oldAlbumName,this.editAlbumName)
-        this.$store.dispatch('editAlbumAction', { oldAlbum: this.oldAlbumName, newAlbum: this.editAlbumName });
+        this.$store.dispatch('editAction', { type:type, oldData: this.oldAlbumName, newData: this.editAlbumName });
         this.editAlbumName = '';
         this.closeEditAlbumDialog();
       }
     },
     deleteAlbum(AlbumName) {
-      this.$store.dispatch('deleteAlbumAction', AlbumName);
+      this.$store.dispatch('deleteAction', { type:type, oldData: AlbumName });
     },
     openAddAlbumDialog() {
       this.addAlbumDialog = true;

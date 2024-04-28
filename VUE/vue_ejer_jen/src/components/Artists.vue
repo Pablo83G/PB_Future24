@@ -73,6 +73,7 @@
 
 <script>
 import generic_dialog from '@/components/GenericDialog.vue'
+const type='artists'
 export default {
 
   data() {
@@ -88,7 +89,7 @@ export default {
   methods: {
     addArtist() {
       if (this.newArtistName) {
-        this.$store.dispatch('addArtistAction', this.newArtistName);
+        this.$store.dispatch('addAction', {type:type, newData:this.newArtistName});
         this.newArtistName = '';
         this.closeAddArtistDialog();
       }
@@ -101,13 +102,13 @@ export default {
     saveEditedArtist() {
       if (this.editArtistName) {
         //   console.log(this.oldArtistName,this.editArtistName)
-        this.$store.dispatch('editArtistAction', { oldArtist: this.oldArtistName, newArtist: this.editArtistName });
+        this.$store.dispatch('editAction', { type:type, oldData: this.oldArtistName, newData: this.editArtistName });
         this.editArtistName = '';
         this.closeEditArtistDialog();
       }
     },
     deleteArtist(artistName) {
-      this.$store.dispatch('deleteArtistAction', artistName);
+      this.$store.dispatch('deleteAction', { type:type, oldData: artistName });
     },
     openAddArtistDialog() {
       this.addArtistDialog = true;
