@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "c0cd7d78-9926-4d83-b81f-0380a845f601",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34155602"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/envioFormulario?nombre=Lucinio&apellido1=Madrigal&apellido2=Bautista&fechaNacimiento=1964-02-22&sexo=masculino",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/envioFormulario?nombre=Lucinio&apellido1=Madrigal&apellido2=Bautista&fechaNacimiento=1990-02-22&sexo=masculino",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"envioFormulario"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Lucinio"
+						},
+						{
+							"key": "apellido1",
+							"value": "Madrigal"
+						},
+						{
+							"key": "apellido2",
+							"value": "Bautista"
+						},
+						{
+							"key": "fechaNacimiento",
+							"value": "1990-02-22"
+						},
+						{
+							"key": "sexo",
+							"value": "masculino"
+						}
+					]
+				},
+				"description": "ss"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/person/00000000A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"00000000A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/person/00000000A",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/person/99999999A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"99999999A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/person/99999999A",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/person/99999999A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"99999999A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/person/77777777A",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/person/77777777A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"77777777A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/person/77777777A",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dni\": \"77777777A\",\r\n    \"name\": \"Carla\",\r\n    \"firstSurname\": \"Alarcon\",\r\n    \"secondSurname\": \"Cabrera\",\r\n    \"fullname\": \"Emilia Iranzo Cabrera\",\r\n    \"birthdate\": \"2010-03-31\",\r\n    \"sex\": \"Femenino\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/person/77777777A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person",
+						"77777777A"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
