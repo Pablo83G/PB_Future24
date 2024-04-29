@@ -9,6 +9,9 @@
               <thead>
                 <tr>
                   <th class="text-left">
+                    Id
+                  </th>
+                  <th class="text-left">
                     Name
                   </th>
                   <th class="text-left">
@@ -17,8 +20,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for=" (artist, key) in $store.state.artists" :key="key">
-                  <td width="80%">{{ artist }}</td>
+                <tr v-for=" (artist) in $store.state.artists" :key="artist.id">
+                  <td width="10%">{{ artist.id }}</td>
+                  <td width="70%">{{ artist.name }}</td>
                   <td shrink: true> <v-btn icon small  @click="editArtist(artist)">
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
@@ -78,8 +82,9 @@ export default {
 
   data() {
     return {
+      id:1,
       newArtistName: '',
-      oldArtistName: '',
+      oldArtist: '',
       editArtistName: '',
       addArtistDialog: false,
       editArtistDialog: false,
@@ -89,26 +94,31 @@ export default {
   methods: {
     addArtist() {
       if (this.newArtistName) {
-        this.$store.dispatch('addAction', {type:type, newData:this.newArtistName});
+        const artist={
+          id:this.id,
+          name:this.newArtistName
+        }
+        this.$store.dispatch('addAction', {type:type, newObject:artist});
         this.newArtistName = '';
         this.closeAddArtistDialog();
+        this.id++
       }
     },
-    editArtist(artistName) {
+    editArtist(artist) {
       // console.log(artistName)
-      this.oldArtistName = artistName;
+      this.oldArtist = artist;
       this.editArtistDialog = true;
     },
     saveEditedArtist() {
       if (this.editArtistName) {
         //   console.log(this.oldArtistName,this.editArtistName)
-        this.$store.dispatch('editAction', { type:type, oldData: this.oldArtistName, newData: this.editArtistName });
+        this.$store.dispatch('editAction', { type:type, oldObject: this.oldArtist, newName: this.editArtistName });
         this.editArtistName = '';
         this.closeEditArtistDialog();
       }
     },
-    deleteArtist(artistName) {
-      this.$store.dispatch('deleteAction', { type:type, oldData: artistName });
+    deleteArtist(artist) {
+      this.$store.dispatch('deleteAction', { type:type, oldObject: artist });
     },
     openAddArtistDialog() {
       this.addArtistDialog = true;

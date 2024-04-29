@@ -9,13 +9,7 @@
               <thead>
                 <tr>
                   <th class="text-left">
-                    id
-                  </th>
-                  <th class="text-left">
                     Name
-                  </th>
-                  <th class="text-left">
-                    Artist
                   </th>
                   <th class="text-left">
                     Actions
@@ -24,9 +18,7 @@
               </thead>
               <tbody>
                 <tr v-for=" (album, key) in $store.state.albums" :key="key">
-                  <td width="10%">{{ album.id }}</td>
-                  <td width="35%">{{ album.name }}</td>
-                  <td width="35%">{{ album.artist }}</td>
+                  <td width="80%">{{ album }}</td>
                   <td> <v-btn icon small class="mr-2" @click="editAlbum(album)">
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
@@ -45,6 +37,9 @@
           <v-col class="align-content-end">
              <v-btn color="primary" @click="openAddAlbumDialog">Agregar Album</v-btn>
           </v-col>
+          <v-col>
+            <v-select flat :items="$store.state.artists" label="Artistas" solo></v-select>
+          </v-col>
         </v-row>
       </v-card-actions>
     </v-card>
@@ -52,12 +47,6 @@
     <generic_dialog :dialog-visible="addAlbumDialog" :title="'Agregar Album'">
       <template #content>
         <v-text-field label="Nombre" v-model="newAlbumName" />
-        <label>Escoge al artista de este album:
-            <v-select flat 
-            :items="options" 
-            v-model="selectedValue" 
-            label="Artistas" solo></v-select>
-        </label>
       </template>
       <template #actions>
         <v-btn @click="addAlbum" color="blue darken-1" text>Guardar</v-btn>
@@ -68,12 +57,6 @@
     <generic_dialog :dialog-visible="editAlbumDialog" :title="'Editar Album'">
       <template #content>
         <v-text-field label="Nombre" v-model="editAlbumName" />
-        <label>Escoge al artista de este album:
-          <v-select flat 
-            :items="options" 
-            v-model="selectedValue" 
-            label="Artistas" solo></v-select>
-        </label>
       </template>
       <template #actions>
         <v-btn @click="saveEditedAlbum" color="blue darken-1" text>Guardar</v-btn>
@@ -87,61 +70,44 @@
 <script>
 
 import generic_dialog from '@/components/GenericDialog.vue'
-
 const type='albums'
-
 export default {
 
   data() {
     return {
-      id:1,
       newAlbumName: '',
-      oldAlbum: '',
+      oldAlbumName: '',
       editAlbumName: '',
       addAlbumDialog: false,
       editAlbumDialog: false,
-      selectedValue:null,
       items: ''
     };
   },
-  computed:{
-    options(){
-      return this.$store.state.artists.map(artist => artist.name)
-    }
-  },
+
   methods: {
     
     addAlbum() {
       if (this.newAlbumName) {
-        const album={
-          id:this.id,
-          name:this.newAlbumName,
-          artist:this.selectedValue
-        }
-        this.$store.dispatch('addAction', {type:type, newObject:album});
-
+        this.$store.dispatch('addAction', {type:type, newData:this.newAlbumName});
         this.newAlbumName = '';
         this.closeAddAlbumDialog();
-
-        this.id++
-        console.dir(JSON.stringify(album))
       }
     },
-    editAlbum(album) {
+    editAlbum(AlbumName) {
       // console.log(AlbumName)
-      this.oldAlbum = album;
+      this.oldAlbumName = AlbumName;
       this.editAlbumDialog = true;
     },
     saveEditedAlbum() {
-      if (this.editAlbumName||this.selectedValue) {//comprueba que se haya modificado el nombre o el artista para realizar la actualizacion
-        // console.log(`${this.selectedValue} `)
-        this.$store.dispatch('editAction', { type:type, oldObject: this.oldAlbum, newName: this.editAlbumName, newArtist:this.selectedValue });
+      if (this.editAlbumName) {
+        //   console.log(this.oldAlbumName,this.editAlbumName)
+        this.$store.dispatch('editAction', { type:type, oldData: this.oldAlbumName, newData: this.editAlbumName });
         this.editAlbumName = '';
         this.closeEditAlbumDialog();
       }
     },
-    deleteAlbum(album) {
-      this.$store.dispatch('deleteAction', { type:type, oldObject: album });
+    deleteAlbum(AlbumName) {
+      this.$store.dispatch('deleteAction', { type:type, oldData: AlbumName });
     },
     openAddAlbumDialog() {
       this.addAlbumDialog = true;

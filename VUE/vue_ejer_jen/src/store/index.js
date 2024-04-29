@@ -11,20 +11,27 @@ export default new Vuex.Store({
     apiData: null,
   },
   mutations: {
-    addMutation(state, {type, newData}){
+    addMutation(state, {type, newObject}){
       const items =state[type];// Se recupera el array del objeto 'state' utilizando la propiedad 'type' proporcionada.Esto permite manejar diferentes tipos de datos
-      items.push(newData);
+      items.push(newObject);
     },
-    editMutation(state, {type,oldData, newData}) {
+    editMutation(state, {type,oldObject, newName,newArtist}) {
         const items =state[type];
-        const index = items.findIndex((existingData) => existingData === oldData)
+        const index = items.findIndex((existingObject) => existingObject.id == oldObject.id)
         if (index > -1) {
-          Vue.set(items, index, newData) //Vue.set metodo propio de vue que sirve actualizar y notificar del cambio para que se actualice
+          const updatedObject={...oldObject};
+          if(newName!== ''){//comprueba que el nuevo nombre tenga valor para cambiarlo
+            updatedObject.name=newName;
+          }
+          if(newArtist!== undefined){
+            updatedObject.artist= newArtist;
+          }
+          Vue.set(items, index, updatedObject) //Vue.set metodo propio de vue que sirve actualizar y notificar del cambio para que se actualice
         }
       },
-    deleteMutation(state, {type,oldData}) {
+    deleteMutation(state, {type,oldObject}) {
         const items =state[type];
-        const index = items.findIndex((existingData) => existingData === oldData)
+        const index = items.findIndex((existingObject) => existingObject.id === oldObject.id)
         items.splice(index, 1);
     },
     
@@ -33,14 +40,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    addAction({ commit }, {type, newData}){
-      commit('addMutation', { type, newData })
+    addAction({ commit }, {type, newObject}){
+      commit('addMutation', { type, newObject })
     },
-    editAction({ commit }, { type, oldData, newData }) {
-      commit('editMutation', { type, oldData, newData })
+    editAction({ commit }, { type, oldObject, newName ,newArtist}) {
+      commit('editMutation', { type, oldObject, newName,newArtist })
     },
-    deleteAction({ commit }, { type, oldData }) {
-      commit('deleteMutation',{ type, oldData })
+    deleteAction({ commit }, { type, oldObject }) {
+      commit('deleteMutation',{ type, oldObject })
     },
     async fetchApiData({ commit }) {
       try {

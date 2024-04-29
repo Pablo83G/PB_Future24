@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialogVisible" width="500">
+  <v-dialog v-model="dialogVisible" width="500" persistent>
     <v-card>
       <v-card-title :title="title">{{ title }}</v-card-title>
       <v-card-text>
@@ -16,7 +16,7 @@ export default {
   name: 'generic_dialog',
   // Props para manejar la visibilidad y el titulo del dialogo
   data: () => ({
-    dialogVisibleLocal: false // Establece un valor inicial 
+    dialogVisibleLocal: null // Establece un valor inicial 
   }),
   props: {
     dialogVisible: {
