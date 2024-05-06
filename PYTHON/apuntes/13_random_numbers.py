@@ -146,7 +146,7 @@ print(a)# E
 # de números pseudoaleatorios NumPy. Debe ser sembrado y utilizado por separado.
 
 """El módulo NumPy requiere instalación
-import numpy as np
+import Numpy as np
 
 np.random.seed(1)
 # rand(d0,d1,…,dn)
