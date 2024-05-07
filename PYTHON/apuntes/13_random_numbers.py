@@ -145,8 +145,8 @@ print(a)# E
 # Es importante destacar que sembrar el generador de números pseudoaleatorios de Python no afecta al generador 
 # de números pseudoaleatorios NumPy. Debe ser sembrado y utilizado por separado.
 
-"""El módulo NumPy requiere instalación
-import Numpy as np
+# El módulo NumPy requiere instalación
+import numpy as np
 
 np.random.seed(1)
 # rand(d0,d1,…,dn)
@@ -172,4 +172,4 @@ print(values)
 arr = np.array([[1,2,3], [4,5,6], [7,8,9]])
 np.random.shuffle(arr)
 print(arr)
-"""
+

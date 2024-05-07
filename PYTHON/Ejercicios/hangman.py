@@ -1,16 +1,24 @@
 import csv 
 import random
+from datetime import datetime
+import uuid
+import pandas as pd
 
 class Hangman:
     def __init__(self):
         self.words=[]
         self.current_word=""
-        self.attempts = 0
-        self.max_attempts = 6
+        self.tries = 0
+        self.max_tries = 6
         self.guessed_letters = set()
         self.rounds = 3
         self.score = 0
         self.displayed_word=""
+        self.victory=""
+        self.id=""
+        self.username=""
+        self.start=""
+        self.end=""
     
     def load(self, filename):
         try:
@@ -113,12 +121,53 @@ class Hangman:
             """
         ]
         #Según el numero de intentos que tenga la ronda se imprimirá un estado diferente
-        print(gallow[self.attempts])
+        print(gallow[self.tries])
     
+                
+    def generate_game_id(self):
+        self.id=uuid.uuid4()            
+     
+            
+    def start_date(self):
+        self.start=datetime.now()
+        
+    
+    def end_date(self):
+        self.end=datetime.now()
+        
+    
+     
+    def register_game(self): #https://docs.python.org/es/3/library/csv.html
+        
+        df=pd.DataFrame({
+                        'game_id':[self.id],
+                        'username':[self.username],
+                        'start_date':[self.start],
+                        'end_date':[self.end],
+                        'final_score':[self.score]
+                        })
+        df.to_csv('./files/games.csv',mode='a',index=False)
+        
+                      
+    def register_round(self):
+        df= pd.DataFrame({
+                "game_id": [self.id],
+                "word": [self.current_word],
+                "username": [self.username],
+                "round_id": [self.current_round],
+                "user_tries": [self.tries],
+                "victory": [self.victory]
+        })
+           
+        df.to_csv('./files/rounds_in_games.csv',mode='a', index=False)
+        
+
+            
     def play_round(self):
        #Inicializamos los valores para cada ronda (intentos y letras dadas)
-       self.attempts=0
-       self.guessed_letters = set()     
+       self.tries=0
+       self.guessed_letters = set()
+       self.victory=""   
        self.chose_word() #Escogemos una palabra para que el jugador la adivine
         
        #Bucle principal de la ronda
@@ -130,6 +179,7 @@ class Hangman:
            # Comprueba si se ha adivinado la palabra
            if "_ " not in self.displayed_word:
                print("¡Felicidades, has adivinado la palabra!")
+               self.victory=True
                self.score+=1 # Aumentamos la puntuación del jugador por adivinar la palabra
                break  # Sale del bucle ya que se ha adivinado la palabra
            
@@ -139,35 +189,53 @@ class Hangman:
            
            # comprueba que la letra dada no este en la palabra secreta
            if guess not in self.current_word:
-               self.attempts+=1 # Aumenta en uno el numero de intentos
+               self.tries+=1 # Aumenta en uno el numero de intentos
                print("¡Fallo!")
-               print(f"Estas son las letras que ya se han introducido {self.guessed_letters}")
+               error_letters=self.guessed_letters.difference(set(self.current_word)) #Mediante la función difference extraemos las letras erróneas 
+               print(f"Letras erróneas: {error_letters}")
                
                 # Verifica si se han agotado los intentos permitidos
-               if self.attempts >= self.max_attempts:
-                    print("Lo siento, has agotado todos tus intentos. La palabra era:", self.current_word)
+               if self.tries >= self.max_tries:
                     self.display_hangman()
+                    print("Lo siento, has agotado todos tus intentos. La palabra era:", self.current_word)
+                    self.victory=False
                     break # Sale del bucle ya que se han agotado los intentos
            else:
                # La letra introducida está en la palabra
-                print("¡Acierto!")
-            
+                print("¡Acierto!")        
         
-    def play(self): 
+    
+        
+              
+    def play(self):
+        self.id=""
+        self.username=""
+        self.start=""
+        self.end=""
+        self.current_round=0
         # Comprueba que las 30 palabras estén cargadas en la propiedad de la clase para iniciar el juego
         if(self.get_number_of_words()):
             print("Bienvinid@ al juego del ahorcado")
             
+            self.generate_game_id()
+            self.start_date()
+            
             #Solicitamos el nombre del jugador:
-            username = input("Por favor, introduce tu nombre de usuario: ")
-            print(f"Comencemos, {username}!")
+            self.username = input("Por favor, introduce tu nombre de usuario: ")
+            print(f"Comencemos, {self.username}!")
             
             # Bucle que llamará a la función ronda tantas veces como rondas haya definidas en la propiedad self.rounds
             for round in range(self.rounds):
-                print(f"Ronda {round+1}")
+                self.current_round=round+1
+                print(f"Ronda {self.current_round}")
                 self.play_round()
+                self.register_round()
                 
             # Muestra la puntuación final del jugador al finalizar todas las rondas    
-            print(f"Fin de la partida, {username} tu puntuación ha sido de {self.score}")
+            print(f"Fin de la partida, {self.username} tu puntuación ha sido de {self.score}")
+            
+            self.end_date()
+            
+            self.register_game()
         else: 
-            pass
+            print("Vaya, parece que no encontramos todas las palabras necesarias, no podemos dar comienzo al juego")

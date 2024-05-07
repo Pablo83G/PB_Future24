@@ -1,6 +1,6 @@
 # Un conjunto es un tipo de datos de colección desordenado que no está indexado, mutable y no tiene elementos duplicados. Los conjuntos se crean con llaves.
 
-# Crear un conjunto¶
+# Crear un conjunto
 # Use llaves o la función set integrada.
 
 # Crear un conjunto vacío
@@ -38,7 +38,7 @@ print(my_set)  # Salida: {True, 42, 'Hello'}
 my_set.add(42)
 print(my_set)  # Salida: {True, 42, 'Hello'}
 
-# Eliminar elementos¶
+# Eliminar elementos
 # remove(x): elimina x, genera un KeyError si el elemento no está presente
 my_set = {"apple", "banana", "cherry"}
 my_set.remove("apple")
@@ -66,14 +66,14 @@ my_set = {"apple", "banana", "cherry"}
 if "apple" in my_set:
     print("sí")  # Salida: sí
 
-# Iterando¶
+# Iterando
 # Iterar sobre un conjunto usando un bucle for in
 # Nota: el orden no es importante
 my_set = {"apple", "banana", "cherry"}
 for i in my_set:
     print(i)  # Salida: 'banana', 'apple', 'cherry'
 
-# Unión e intersección¶
+# Unión e intersección
 impares = {1, 3, 5, 7, 9}
 pares = {0, 2, 4, 6, 8}
 primos = {2, 3, 5, 7}
@@ -93,7 +93,7 @@ print(i)  # Salida: {3, 5, 7}
 i = pares.intersection(primos)
 print(i)  # Salida: {2}
 
-# Diferencia de conjuntos¶
+# Diferencia de conjuntos
 conjuntoA = {1, 2, 3, 4, 5, 6, 7, 8, 9}
 conjuntoB = {1, 2, 3, 10, 11, 12}
 
