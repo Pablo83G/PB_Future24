@@ -208,15 +208,17 @@ class Hangman:
                break  # Sale del bucle ya que se ha adivinado la palabra
            
            #Solicitamos una nueva letra (la convertimos a mayuscula) y se agrega al conjunto
+           
            guess=input("Introduce una letra: ").upper()
            self.guessed_letters.add(guess)    
            
+           error_letters=self.guessed_letters.difference(set(self.current_word)) #Mediante la función difference extraemos las letras erróneas 
+           print(f"Letras erróneas: {error_letters}")
            # comprueba que la letra dada no este en la palabra secreta
            if guess not in self.current_word:
                self.tries+=1 # Aumenta en uno el numero de intentos
                print("¡Fallo!")
-               error_letters=self.guessed_letters.difference(set(self.current_word)) #Mediante la función difference extraemos las letras erróneas 
-               print(f"Letras erróneas: {error_letters}")
+               
                
                 # Verifica si se han agotado los intentos permitidos
                if self.tries >= self.max_tries:
@@ -258,8 +260,10 @@ class Hangman:
             # Muestra la puntuación final del jugador al finalizar todas las rondas    
             print(f"Fin de la partida, {self.username} tu puntuación ha sido de {self.score}")
             
+            #Registramos la fecha de finalización
             self.end_date()
             
+            #Registramos los datos de la partida en el fichero games.csv
             self.register_game()
         else: 
             print("Vaya, parece que no encontramos todas las palabras necesarias, no podemos dar comienzo al juego")
