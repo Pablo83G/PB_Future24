@@ -3,6 +3,7 @@ import random
 from datetime import datetime
 import uuid
 import pandas as pd
+from os import path
 
 class Hangman:
     def __init__(self):
@@ -146,20 +147,43 @@ class Hangman:
                         'end_date':[self.end],
                         'final_score':[self.score]
                         })
-        df.to_csv('./files/games.csv',mode='a',index=False)
+         # Definir la ruta al archivo CSV
+        file_path = './files/games.csv'
+        
+        # Verificar si el archivo existe y tiene contenido antes de decidir añadir encabezados
+        if path.exists(file_path) and path.getsize(file_path) > 0:
+            # Añadir datos sin encabezados
+            df.to_csv(file_path, mode='a', header=False, index=False)
+        else:
+            # Crear archivo nuevo con encabezados
+            df.to_csv(file_path, mode='w', header=True, index=False)
+
+        print("Partida registrada correctamente.")
         
                       
     def register_round(self):
-        df= pd.DataFrame({
-                "game_id": [self.id],
-                "word": [self.current_word],
-                "username": [self.username],
-                "round_id": [self.current_round],
-                "user_tries": [self.tries],
-                "victory": [self.victory]
+            # Crear DataFrame con los datos de la ronda
+        df = pd.DataFrame({
+            "game_id": [self.id],
+            "word": [self.current_word],
+            "username": [self.username],
+            "round_id": [self.current_round],
+            "user_tries": [self.tries],
+            "victory": [self.victory]
         })
-           
-        df.to_csv('./files/rounds_in_games.csv',mode='a', index=False)
+
+        # Definir la ruta al archivo CSV
+        file_path = './files/rounds_in_games.csv'
+        
+        # Verificar si el archivo existe y tiene contenido antes de decidir añadir encabezados
+        if path.exists(file_path) and path.getsize(file_path) > 0:
+            # Añadir datos sin encabezados
+            df.to_csv(file_path, mode='a', header=False, index=False)
+        else:
+            # Crear archivo nuevo con encabezados
+            df.to_csv(file_path, mode='w', header=True, index=False)
+
+        print("Ronda registrada correctamente.")
         
 
             
