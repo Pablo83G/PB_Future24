@@ -14,3 +14,39 @@ e4f77c91-8926-4880-babc-d3ac97751023,OBJETO,Jose,3,6,False
 cdeb5f97-a89d-431b-972c-c640e336abbc,INTERPRETE,Emilia,1,1,True
 cdeb5f97-a89d-431b-972c-c640e336abbc,PAGINA,Emilia,2,5,True
 cdeb5f97-a89d-431b-972c-c640e336abbc,SERVIDOR,Emilia,3,0,True
+a4e46fc1-7ea3-47d1-abf2-ff2c6e3fedf6,ITERACION,Nerea,1,0,True
+a4e46fc1-7ea3-47d1-abf2-ff2c6e3fedf6,SERVIDOR,Nerea,2,1,True
+a4e46fc1-7ea3-47d1-abf2-ff2c6e3fedf6,CONJUNTO,Nerea,3,6,False
+cd333e62-0b2b-4e1f-b33e-48007cff16bc,PAGINA,Luci,1,4,True
+cd333e62-0b2b-4e1f-b33e-48007cff16bc,INTERPRETE,Luci,2,3,True
+cd333e62-0b2b-4e1f-b33e-48007cff16bc,ALGORITMO,Luci,3,6,False
+9e194839-1256-47f8-bdb7-42378631e799,RATON,Nerea,1,6,False
+9e194839-1256-47f8-bdb7-42378631e799,PROGRAMACION,Nerea,2,1,True
+9e194839-1256-47f8-bdb7-42378631e799,VARIABLE,Nerea,3,6,False
+7bb7e8e2-f228-4c5b-94db-418acb47edb7,COMPILADOR,Jose,1,1,True
+7bb7e8e2-f228-4c5b-94db-418acb47edb7,LENGUAJE,Jose,2,6,False
+7bb7e8e2-f228-4c5b-94db-418acb47edb7,METODO,Jose,3,5,True
+c91712fe-021d-42cb-8a0c-a00ce43ab751,METODO,Tere,1,6,False
+c91712fe-021d-42cb-8a0c-a00ce43ab751,EDITOR,Tere,2,6,False
+c91712fe-021d-42cb-8a0c-a00ce43ab751,OBJETO,Tere,3,2,True
+db6c5e5c-a6c4-49a5-b397-10ed05023b96,LIBRO,Nerea,1,5,True
+db6c5e5c-a6c4-49a5-b397-10ed05023b96,INTERPRETE,Nerea,2,4,True
+db6c5e5c-a6c4-49a5-b397-10ed05023b96,METODO,Nerea,3,3,True
+ed3aabfa-59c5-44c1-804d-3e39716ba133,CAMINO,Jose,1,4,True
+ed3aabfa-59c5-44c1-804d-3e39716ba133,ITERACION,Jose,2,0,True
+ed3aabfa-59c5-44c1-804d-3e39716ba133,CODIGO,Jose,3,1,True
+94494b08-15b4-4e70-a773-ea250ecda185,ESCRITORIO,Luci,1,6,False
+94494b08-15b4-4e70-a773-ea250ecda185,GRAFICO,Luci,2,6,False
+94494b08-15b4-4e70-a773-ea250ecda185,PAGINA,Luci,3,6,False
+dad0ce50-eb94-40c9-b5a6-8836fc25590e,COMPILADOR,Homer,1,6,False
+dad0ce50-eb94-40c9-b5a6-8836fc25590e,INTEGRACION,Homer,2,3,True
+dad0ce50-eb94-40c9-b5a6-8836fc25590e,ORDENADOR,Homer,3,4,True
+92dbab8b-0386-40f2-a13f-51f3c654b8ef,CLASE,Michael Scott,1,6,False
+92dbab8b-0386-40f2-a13f-51f3c654b8ef,DESARROLLO,Michael Scott,2,3,True
+92dbab8b-0386-40f2-a13f-51f3c654b8ef,SERVIDOR,Michael Scott,3,5,True
+98f705b9-0cb4-4964-b1bc-20a50efe0358,SERVIDOR,Jose,1,4,True
+98f705b9-0cb4-4964-b1bc-20a50efe0358,LENGUAJE,Jose,2,6,False
+98f705b9-0cb4-4964-b1bc-20a50efe0358,LIBRO,Jose,3,2,True
+83a3f94d-e901-4ad7-a6d9-4e8412f14e3d,CONDICION,Doctor Who,1,6,False
+83a3f94d-e901-4ad7-a6d9-4e8412f14e3d,LABERINTO,Doctor Who,2,5,True
+83a3f94d-e901-4ad7-a6d9-4e8412f14e3d,LIBRO,Doctor Who,3,3,True

@@ -20,11 +20,10 @@ class Hangman:
         self.username=""
         self.start=""
         self.end=""
-    
+    #Función que lee el fichero words y carga las palabras
     def load(self, filename):
         try:
-            # full_path = os.path.abspath(filename)
-            # print("Ruta completa:", full_path)
+            #Leemos el fichero y cargamos los datos en la propiedad de la clase words
             with open(filename, 'r', encoding='utf-8') as csvfile:
                 reader = csv.reader(csvfile)
                 for row in reader:
@@ -32,18 +31,21 @@ class Hangman:
                                                                 # ponemos las palabras en mayusculas y quitamos los espacios que puedan tener
         except FileNotFoundError:
             print("El archivo no se ha encontrado")
-            
+     
+    #Función que comprueba que se hayan cargado las 30 palabras como requisito para iniciar el juego       
     def get_number_of_words(self):
         if len(self.words) == 30:
             return True
         else:
             return False
-        
+    
+    #Función que selecciona una palabra    
     def chose_word(self):
         self.current_word=random.choice(self.words)
         self.words.remove(self.current_word)#quitamos la palabra de la lista para evitar que se vuelva a escoger en la misma partida
         # print(self.current_word)
-        
+    
+    #Función que muestra los espacios o las letras en su posición     
     def display_word(self):
         # Inicializamos una cadena vacía para almacenar la representación de la palabra a mostrar
         self.displayed_word = ""
@@ -60,9 +62,9 @@ class Hangman:
         print(self.displayed_word)
 
         
-        
+    #Funcion que muestra los diferentes estados del ahorcado    
     def display_hangman(self):
-        # Definimos una lista con los diferentes estados del ahorcado
+        # Definimos una lista 
         gallow=[
              """
             +-------+
@@ -124,21 +126,21 @@ class Hangman:
         #Según el numero de intentos que tenga la ronda se imprimirá un estado diferente
         print(gallow[self.tries])
     
-                
+    #Función que genera el id de la partida            
     def generate_game_id(self):
         self.id=uuid.uuid4()            
      
-            
+    #Función que establece la fecha y hora de inicio de la partida        
     def start_date(self):
         self.start=datetime.now()
         
-    
+    #Función que establece la fecha y hora de fin de la partida  
     def end_date(self):
         self.end=datetime.now()
         
     
-     
-    def register_game(self): #https://docs.python.org/es/3/library/csv.html
+    # Función que registra los datos de la partida 
+    def register_game(self,file_path): 
         
         df=pd.DataFrame({
                         'game_id':[self.id],
@@ -147,22 +149,20 @@ class Hangman:
                         'end_date':[self.end],
                         'final_score':[self.score]
                         })
-         # Definir la ruta al archivo CSV
-        file_path = './files/games.csv'
         
-        # Verificar si el archivo existe y tiene contenido antes de decidir añadir encabezados
+        # Verificamos si el archivo existe y tiene contenido antes de decidir añadir encabezados
         if path.exists(file_path) and path.getsize(file_path) > 0:
-            # Añadir datos sin encabezados
+            # Añadimos datos sin encabezados
             df.to_csv(file_path, mode='a', header=False, index=False)
         else:
-            # Crear archivo nuevo con encabezados
+            # Creamos archivo nuevo con encabezados
             df.to_csv(file_path, mode='w', header=True, index=False)
 
         print("Partida registrada correctamente.")
         
-                      
-    def register_round(self):
-            # Crear DataFrame con los datos de la ronda
+    # Función que registra los datos de la ronda                   
+    def register_round(self,file_path):
+            # Crea DataFrame con los datos de la ronda
         df = pd.DataFrame({
             "game_id": [self.id],
             "word": [self.current_word],
@@ -171,11 +171,8 @@ class Hangman:
             "user_tries": [self.tries],
             "victory": [self.victory]
         })
-
-        # Definir la ruta al archivo CSV
-        file_path = './files/rounds_in_games.csv'
         
-        # Verificar si el archivo existe y tiene contenido antes de decidir añadir encabezados
+        # Verificamos si el archivo existe y tiene contenido antes de decidir añadir encabezados
         if path.exists(file_path) and path.getsize(file_path) > 0:
             # Añadir datos sin encabezados
             df.to_csv(file_path, mode='a', header=False, index=False)
@@ -186,7 +183,7 @@ class Hangman:
         print("Ronda registrada correctamente.")
         
 
-            
+    #Función para ejecutar una ronda        
     def play_round(self):
        #Inicializamos los valores para cada ronda (intentos y letras dadas)
        self.tries=0
@@ -207,20 +204,21 @@ class Hangman:
                self.score+=1 # Aumentamos la puntuación del jugador por adivinar la palabra
                break  # Sale del bucle ya que se ha adivinado la palabra
            
-           #Solicitamos una nueva letra (la convertimos a mayuscula) y se agrega al conjunto
-           
+           #Mediante la función difference extraemos las letras erróneas 
+           error_letters=self.guessed_letters.difference(set(self.current_word)) 
+           if error_letters:
+                print(f"Letras erróneas: {error_letters}") #Si ya ha fallado alguna letra se mostrarán
+                 
+           #Solicitamos una nueva letra (la convertimos a mayuscula) y se agrega al conjunto 
            guess=input("Introduce una letra: ").upper()
            self.guessed_letters.add(guess)    
            
-           error_letters=self.guessed_letters.difference(set(self.current_word)) #Mediante la función difference extraemos las letras erróneas 
-           print(f"Letras erróneas: {error_letters}")
            # comprueba que la letra dada no este en la palabra secreta
            if guess not in self.current_word:
                self.tries+=1 # Aumenta en uno el numero de intentos
-               print("¡Fallo!")
+               print("¡Fallo!")   
                
-               
-                # Verifica si se han agotado los intentos permitidos
+               # Verifica si se han agotado los intentos permitidos
                if self.tries >= self.max_tries:
                     self.display_hangman()
                     print("Lo siento, has agotado todos tus intentos. La palabra era:", self.current_word)
@@ -232,7 +230,7 @@ class Hangman:
         
     
         
-              
+    #Función que ejecuta el juego          
     def play(self):
         self.id=""
         self.username=""
@@ -255,7 +253,7 @@ class Hangman:
                 self.current_round=round+1
                 print(f"Ronda {self.current_round}")
                 self.play_round()
-                self.register_round()
+                self.register_round('./files/rounds_in_games.csv')
                 
             # Muestra la puntuación final del jugador al finalizar todas las rondas    
             print(f"Fin de la partida, {self.username} tu puntuación ha sido de {self.score}")
@@ -264,6 +262,6 @@ class Hangman:
             self.end_date()
             
             #Registramos los datos de la partida en el fichero games.csv
-            self.register_game()
+            self.register_game('./files/games.csv')
         else: 
             print("Vaya, parece que no encontramos todas las palabras necesarias, no podemos dar comienzo al juego")
